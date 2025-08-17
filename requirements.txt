@@ -1,0 +1,46 @@
+# --- Core Framework & Utilities ---
+Flask
+flask-cors
+werkzeug
+python-dotenv
+
+# --- MongoDB ---
+pymongo
+certifi
+
+# --- Azure OpenAI SDK ---
+openai
+
+# --- LangChain & Extensions ---
+langchain
+langchain-community
+langchain-core
+langchain-openai
+langchain-text-splitters
+langsmith
+
+# --- Data Handling & Document Processing ---
+pandas
+python-docx
+pypdf
+json5
+pyyaml
+
+# --- OCR, Audio & Image Processing ---
+pytesseract
+SpeechRecognition
+pydub
+Pillow
+
+# --- Web Parsing (Optional) ---
+requests
+beautifulsoup4
+lxml
+html5lib
+
+# --- Miscellaneous Tools ---
+gTTS
+pyttsx3
+pywhatkit
+pyjokes
+wikipedia

@@ -1,0 +1,186 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    /* Cool dark mode with sophisticated cold colors */
+    --background: 220 20% 6%;
+    --foreground: 180 15% 92%;
+
+    --card: 220 18% 10%;
+    --card-foreground: 180 15% 92%;
+
+    --popover: 220 18% 10%;
+    --popover-foreground: 180 15% 92%;
+
+    /* Cool cyan-teal primary */
+    --primary: 185 85% 55%;
+    --primary-foreground: 220 20% 8%;
+    --primary-glow: 175 70% 65%;
+
+    --secondary: 220 15% 16%;
+    --secondary-foreground: 180 15% 88%;
+
+    --muted: 220 15% 16%;
+    --muted-foreground: 200 15% 65%;
+
+    /* Cool mint-green accent */
+    --accent: 165 85% 65%;
+    --accent-foreground: 220 20% 8%;
+
+    --destructive: 5 85% 60%;
+    --destructive-foreground: 180 15% 92%;
+
+    --border: 220 15% 22%;
+    --input: 220 18% 14%;
+    --ring: 185 85% 55%;
+
+    /* Cool sophisticated gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(185 85% 55%), hsl(165 85% 65%), hsl(145 75% 60%));
+    --gradient-secondary: linear-gradient(145deg, hsl(210 85% 65%), hsl(185 75% 60%));
+    --gradient-card: linear-gradient(145deg, hsl(220 18% 10%), hsl(220 15% 14%));
+    --gradient-button: linear-gradient(135deg, hsl(185 85% 55%) 0%, hsl(165 85% 60%) 100%);
+    --gradient-background: linear-gradient(135deg, hsl(220 20% 6%) 0%, hsl(220 18% 10%) 100%);
+    --gradient-watermark: linear-gradient(135deg, hsl(185 85% 55% / 0.08), hsl(165 85% 65% / 0.08));
+    
+    /* Subtle cool shadows */
+    --shadow-glow: 0 0 25px hsl(185 85% 55% / 0.25);
+    --shadow-card: 0 8px 32px hsl(185 85% 55% / 0.15);
+    --shadow-elegant: 0 10px 30px -10px hsl(165 85% 65% / 0.2);
+
+    --radius: 0.75rem;
+
+    --sidebar-background: 220 18% 10%;
+    --sidebar-foreground: 180 15% 92%;
+    --sidebar-primary: 185 85% 55%;
+    --sidebar-primary-foreground: 220 20% 8%;
+    --sidebar-accent: 220 15% 16%;
+    --sidebar-accent-foreground: 180 15% 88%;
+    --sidebar-border: 220 15% 22%;
+    --sidebar-ring: 185 85% 55%;
+    
+    /* Custom scrollbar styles */
+    --scrollbar-thumb: 200 15% 25%;
+    --scrollbar-track: 220 18% 10%;
+  }
+
+  .light {
+    /* Cool light mode with fresh cold colors */
+    --background: 195 25% 96%;
+    --foreground: 220 25% 15%;
+
+    --card: 195 20% 92%;
+    --card-foreground: 220 25% 15%;
+
+    --popover: 195 20% 92%;
+    --popover-foreground: 220 25% 15%;
+
+    /* Cool teal-cyan primary */
+    --primary: 185 80% 45%;
+    --primary-foreground: 0 0% 100%;
+    --primary-glow: 165 75% 55%;
+
+    --secondary: 195 15% 85%;
+    --secondary-foreground: 220 25% 25%;
+
+    --muted: 195 15% 87%;
+    --muted-foreground: 220 15% 45%;
+
+    /* Cool mint accent */
+    --accent: 165 75% 50%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 5 85% 55%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 195 20% 78%;
+    --input: 195 20% 88%;
+    --ring: 185 80% 45%;
+
+    /* Cool light mode gradients */
+    --gradient-primary: linear-gradient(135deg, hsl(185 80% 45%), hsl(165 75% 55%), hsl(145 70% 50%));
+    --gradient-secondary: linear-gradient(145deg, hsl(210 75% 60%), hsl(185 70% 55%));
+    --gradient-card: linear-gradient(145deg, hsl(195 20% 92%), hsl(195 15% 88%));
+    --gradient-button: linear-gradient(135deg, hsl(185 80% 45%) 0%, hsl(165 75% 50%) 100%);
+    --gradient-background: linear-gradient(135deg, hsl(195 25% 96%) 0%, hsl(195 20% 90%) 100%);
+    --gradient-watermark: linear-gradient(135deg, hsl(185 80% 45% / 0.08), hsl(165 75% 55% / 0.08));
+    
+    /* Subtle light mode shadows */
+    --shadow-glow: 0 0 20px hsl(185 80% 45% / 0.2);
+    --shadow-card: 0 8px 32px hsl(185 80% 45% / 0.12);
+    --shadow-elegant: 0 10px 30px -10px hsl(165 75% 55% / 0.15);
+
+    --sidebar-background: 240 5.9% 10%;
+    --sidebar-foreground: 240 4.8% 95.9%;
+    --sidebar-primary: 195 100% 50%;
+    --sidebar-primary-foreground: 0 0% 100%;
+    --sidebar-accent: 240 3.7% 15.9%;
+    --sidebar-accent-foreground: 240 4.8% 95.9%;
+    --sidebar-border: 240 3.7% 15.9%;
+    --sidebar-ring: 195 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+  
+  /* Custom scrollbar utilities */
+  .scrollbar-thin {
+    scrollbar-width: thin;
+  }
+  
+  .scrollbar-track-background {
+    scrollbar-color: hsl(var(--scrollbar-thumb)) hsl(var(--scrollbar-track));
+  }
+  
+  .scrollbar-thumb-muted-foreground {
+    scrollbar-color: hsl(var(--muted-foreground)) hsl(var(--background));
+  }
+  
+  /* Webkit scrollbar styles */
+  .scrollbar-thin::-webkit-scrollbar {
+    width: 6px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-track {
+    background: hsl(var(--background));
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb {
+    background: hsl(var(--muted-foreground) / 0.3);
+    border-radius: 3px;
+  }
+  
+  .scrollbar-thin::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--muted-foreground) / 0.5);
+  }
+}
+
+/* Custom scrollbar styles */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 2px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.3);
+  border-radius: 1px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.5);
+}

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="AI Assistant innovative logo">
+  <!-- Colors use HSL values aligned to the design system -->
+  <!-- primary: hsl(185 85% 55%), accent: hsl(165 85% 65%) -->
+  <defs>
+    <linearGradient id="grad-primary" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="hsl(185 85% 55%)"/>
+      <stop offset="100%" stop-color="hsl(165 85% 65%)"/>
+    </linearGradient>
+    <linearGradient id="grad-accent" x1="1" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="hsl(165 85% 65%)"/>
+      <stop offset="100%" stop-color="hsl(185 85% 55%)"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" stop-color="hsl(185 85% 55% / 0.4)"/>
+      <stop offset="100%" stop-color="hsl(185 85% 55% / 0)"/>
+    </radialGradient>
+    <filter id="softGlow" x="-50%" y="-50%" width="200%" height="200%">
+      <feGaussianBlur in="SourceGraphic" stdDeviation="4" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Soft radial glow background -->
+  <circle cx="128" cy="128" r="110" fill="url(#glow)"/>
+
+  <!-- Futuristic hex shield -->
+  <g filter="url(#softGlow)">
+    <path d="M128 22 L208 68 L208 188 L128 234 L48 188 L48 68 Z" fill="none" stroke="url(#grad-primary)" stroke-width="10" opacity="0.9"/>
+  </g>
+
+  <!-- Neural circuit brain inside -->
+  <g stroke-linecap="round" stroke-linejoin="round">
+    <!-- Orbit rings -->
+    <circle cx="128" cy="128" r="64" stroke="url(#grad-primary)" stroke-width="6" opacity="0.6"/>
+    <ellipse cx="128" cy="128" rx="84" ry="36" transform="rotate(20 128 128)" stroke="url(#grad-accent)" stroke-width="4" opacity="0.5"/>
+    <ellipse cx="128" cy="128" rx="84" ry="36" transform="rotate(-20 128 128)" stroke="url(#grad-accent)" stroke-width="4" opacity="0.45"/>
+
+    <!-- Core pathways forming stylized A and I -->
+    <path d="M96 160 L128 88 L160 160" stroke="url(#grad-primary)" stroke-width="8"/>
+    <path d="M176 96 L176 160" stroke="url(#grad-accent)" stroke-width="8"/>
+
+    <!-- Cross-links -->
+    <path d="M112 128 L144 128" stroke="url(#grad-accent)" stroke-width="6" opacity="0.7"/>
+    <path d="M112 144 L144 112" stroke="url(#grad-primary)" stroke-width="4" opacity="0.7"/>
+    <path d="M112 112 L144 144" stroke="url(#grad-primary)" stroke-width="4" opacity="0.7"/>
+
+    <!-- Connection nodes -->
+    <circle cx="128" cy="88" r="7" fill="hsl(185 85% 55%)"/>
+    <circle cx="96" cy="160" r="6" fill="hsl(165 85% 65%)"/>
+    <circle cx="160" cy="160" r="6" fill="hsl(165 85% 65%)"/>
+    <circle cx="176" cy="96" r="6" fill="hsl(185 85% 55%)"/>
+    <circle cx="176" cy="160" r="6" fill="hsl(185 85% 55%)"/>
+    <circle cx="112" cy="128" r="5" fill="hsl(165 85% 65%)"/>
+    <circle cx="144" cy="128" r="5" fill="hsl(165 85% 65%)"/>
+  </g>
+
+  <!-- Inner shield highlight -->
+  <path d="M128 34 L196 73 L196 183 L128 222 L60 183 L60 73 Z" fill="none" stroke="url(#grad-accent)" stroke-width="2" opacity="0.6"/>
+</svg>
