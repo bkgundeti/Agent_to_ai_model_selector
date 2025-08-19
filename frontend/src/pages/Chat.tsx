@@ -9,6 +9,7 @@ import { Separator } from "@/components/ui/separator";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { Badge } from "@/components/ui/badge";
 import { useTheme } from "@/components/ThemeProvider";
+import { useIsMobile } from "@/hooks/use-mobile";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -57,12 +58,20 @@ const Chat = () => {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [promptCount, setPromptCount] = useState(0);
   const [responseCount, setResponseCount] = useState(0);
+  const isMobile = useIsMobile();
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
   const navigate = useNavigate();
   const { toast } = useToast();
   const { theme, setTheme } = useTheme();
+
+  // Set sidebar collapsed by default on mobile
+  useEffect(() => {
+    if (isMobile) {
+      setIsSidebarCollapsed(true);
+    }
+  }, [isMobile]);
 
   useEffect(() => {
     const email = localStorage.getItem('userEmail');
@@ -300,35 +309,45 @@ const Chat = () => {
   return (
     <div className="flex h-screen bg-gradient-background">
       {/* Mobile Responsive Overlay */}
-      {!isSidebarCollapsed && (
+      {!isSidebarCollapsed && isMobile && (
         <div 
-          className="fixed inset-0 bg-black/50 z-40 md:hidden" 
+          className="fixed inset-0 bg-black/50 z-40" 
           onClick={() => setIsSidebarCollapsed(true)}
         />
       )}
       {/* Sidebar */}
-      <div className={`${isSidebarCollapsed ? 'w-16 md:w-16' : 'w-80 md:w-80'} ${!isSidebarCollapsed ? 'fixed md:relative z-50 md:z-auto' : 'relative'} border-r border-border bg-card/50 backdrop-blur-sm flex flex-col transition-all duration-300 h-full`}>
+      <div className={`${
+        isSidebarCollapsed 
+          ? isMobile ? 'w-0' : 'w-16' 
+          : isMobile ? 'w-80' : 'w-80'
+      } ${
+        !isSidebarCollapsed && isMobile ? 'fixed z-50' : 'relative'
+      } border-r border-border bg-card/50 backdrop-blur-sm flex flex-col transition-all duration-300 h-full ${
+        isSidebarCollapsed && isMobile ? 'overflow-hidden' : ''
+      }`}>
         {/* User Avatar Toggle for Sidebar */}
-        <div className="p-4 border-b border-border">
-          <div className="flex items-center space-x-3">
-            <Avatar 
-              className="w-10 h-10 bg-gradient-primary shadow-glow cursor-pointer" 
-              onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
-            >
-              <AvatarFallback className="bg-gradient-primary text-primary-foreground font-semibold">
-                {getUserInitial(userEmail)}
-              </AvatarFallback>
-            </Avatar>
-            {!isSidebarCollapsed && (
-              <div className="flex-1 min-w-0">
-                <h3 className="font-semibold text-foreground truncate">{username}</h3>
-                <p className="text-sm text-muted-foreground truncate">{userEmail}</p>
-              </div>
-            )}
+        {!(isSidebarCollapsed && isMobile) && (
+          <div className="p-4 border-b border-border">
+            <div className="flex items-center space-x-3">
+              <Avatar 
+                className="w-10 h-10 bg-gradient-primary shadow-glow cursor-pointer" 
+                onClick={() => setIsSidebarCollapsed(!isSidebarCollapsed)}
+              >
+                <AvatarFallback className="bg-gradient-primary text-primary-foreground font-semibold">
+                  {getUserInitial(userEmail)}
+                </AvatarFallback>
+              </Avatar>
+              {!isSidebarCollapsed && (
+                <div className="flex-1 min-w-0">
+                  <h3 className="font-semibold text-foreground truncate">{username}</h3>
+                  <p className="text-sm text-muted-foreground truncate">{userEmail}</p>
+                </div>
+              )}
+            </div>
           </div>
-        </div>
+        )}
 
-        {!isSidebarCollapsed && (
+        {!isSidebarCollapsed && !(isSidebarCollapsed && isMobile) && (
           <>
             {/* Settings and Actions */}
             <div className="p-4 border-b border-border">
@@ -442,16 +461,27 @@ const Chat = () => {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col">
+      <div className="flex-1 flex flex-col min-w-0">
         {/* Chat Header */}
         <div className="border-b border-border bg-card/95 backdrop-blur-sm p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
+              {/* Mobile Avatar Toggle - Show only when sidebar is collapsed on mobile */}
+              {isMobile && isSidebarCollapsed && (
+                <Avatar 
+                  className="w-10 h-10 bg-gradient-primary shadow-glow cursor-pointer" 
+                  onClick={() => setIsSidebarCollapsed(false)}
+                >
+                  <AvatarFallback className="bg-gradient-primary text-primary-foreground font-semibold">
+                    {getUserInitial(userEmail)}
+                  </AvatarFallback>
+                </Avatar>
+              )}
               <div className="w-10 h-10 flex items-center justify-center">
                 <img src={aiLogo} alt="AI Logo" className="w-8 h-8" />
               </div>
-              <div>
-                <h1 className="text-lg font-semibold">AI Model Assistant</h1>
+              <div className="min-w-0 flex-1">
+                <h1 className="text-lg font-semibold truncate">AI Model Assistant</h1>
                 <div className="flex items-center space-x-2">
                   {isOnline ? (
                     <>
@@ -484,7 +514,7 @@ const Chat = () => {
                   key={message.id}
                   className={`flex ${message.isUser ? 'justify-end' : 'justify-start'} animate-fade-in`}
                 >
-                  <div className={`flex items-start space-x-3 max-w-[80%] ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
+                  <div className={`flex items-start space-x-3 ${isMobile ? 'max-w-[90%]' : 'max-w-[80%]'} ${message.isUser ? 'flex-row-reverse space-x-reverse' : ''}`}>
                     <Avatar className={`w-10 h-10 ${message.isUser ? '' : 'bg-gradient-primary shadow-glow'}`}>
                       {message.isUser ? (
                         <AvatarFallback className="bg-secondary text-secondary-foreground">
@@ -580,7 +610,7 @@ const Chat = () => {
                 ))}
               </div>
             )}
-            <div className="flex items-end space-x-2">
+            <div className={`flex items-end ${isMobile ? 'space-x-1' : 'space-x-2'}`}>
               <div className="flex-1 space-y-2">
                 <Textarea
                   value={input}
@@ -603,7 +633,7 @@ const Chat = () => {
               
               <Button
                 variant="outline"
-                size="icon"
+                size={isMobile ? "sm" : "icon"}
                 onClick={() => fileInputRef.current?.click()}
                 disabled={isLoading}
                 className="shrink-0"
@@ -614,6 +644,7 @@ const Chat = () => {
               <Button
                 onClick={handleSendMessage}
                 disabled={(!input.trim() && selectedFiles.length === 0) || isLoading}
+                size={isMobile ? "sm" : "default"}
                 className="bg-gradient-button hover:opacity-90 shadow-glow transition-all duration-300 shrink-0"
               >
                 <Send className="w-4 h-4" />
