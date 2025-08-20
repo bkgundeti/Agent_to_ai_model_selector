@@ -461,9 +461,9 @@ const Chat = () => {
       </div>
 
       {/* Main Chat Area */}
-      <div className="flex-1 flex flex-col min-w-0">
-        {/* Chat Header */}
-        <div className="border-b border-border bg-card/95 backdrop-blur-sm p-4">
+      <div className="flex-1 flex flex-col min-w-0 h-screen">
+        {/* Chat Header - Fixed */}
+        <div className="sticky top-0 z-30 border-b border-border bg-card/95 backdrop-blur-sm p-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
               {/* Mobile Avatar Toggle - Show only when sidebar is collapsed on mobile */}
@@ -582,8 +582,8 @@ const Chat = () => {
           </div>
         </ScrollArea>
 
-        {/* Input Area */}
-        <div className="border-t border-border bg-card/95 backdrop-blur-sm p-4">
+        {/* Input Area - Fixed */}
+        <div className="sticky bottom-0 z-20 border-t border-border bg-card/95 backdrop-blur-sm p-4">
           <div className="max-w-4xl mx-auto">
             {/* Selected Files Display - Above input field */}
             {selectedFiles.length > 0 && (
